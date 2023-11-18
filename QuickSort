@@ -1,0 +1,102 @@
+#include <iostream>
+#include <time.h>
+
+using namespace std;
+
+int const TAM = 100;
+int vetor[TAM];
+int troca = 0;
+int comparacao = 0;
+
+void aleatorio (int vetor_[TAM])
+{
+for(int a=0; a<TAM; a++){
+vetor_[a] = rand() % TAM + 1;
+
+}
+}
+void crescente(int vetor_[TAM])
+{
+for(int i = 1; i < TAM; i++)
+{
+vetor_[i]= i;
+
+}
+
+}
+void decrescente(int vetor_[TAM])
+{
+for(int d=0; d<=TAM; d++)
+{
+
+vetor[d]= TAM - d;
+}
+}
+void exibe (int vetor_[TAM])
+{
+
+for(int e = 0; e < TAM; e++)
+{
+cout << vetor_[e] << " - ";
+
+}
+cout << endl;
+}
+
+int posicao(int *vetor_, int inicio, int fim){
+
+int controle_de_inicio = inicio;
+int pivot = vetor_[fim];
+int auxiliar; // auxiliar de troca
+
+for(int posi = inicio; posi < fim; posi++){
+comparacao++;
+if(vetor_[posi] < pivot){
+auxiliar = vetor_[posi];
+vetor_[posi] = vetor_[controle_de_inicio];
+vetor_[controle_de_inicio] = auxiliar;
+controle_de_inicio = controle_de_inicio + 1;
+
+}
+}
+
+auxiliar = vetor_[fim];
+vetor_[fim] = vetor_[controle_de_inicio];
+vetor_[controle_de_inicio] = auxiliar; //
+controle de pivot
+return controle_de_inicio;
+}
+
+void quicksort ( int *vetor_, int inicio, int fim){
+
+int armazena; // armazena a posição do pivô
+
+if(inicio < fim){
+
+armazena = posicao(vetor_, inicio, fim);
+quicksort(vetor_, inicio, armazena - 1);
+quicksort(vetor_, armazena+1, fim);
+// sistema recursivo
+troca++;
+
+}
+
+}
+
+int main()
+{
+srand(time(NULL));
+
+aleatorio(vetor);
+exibe(vetor);
+quicksort(vetor, 0, TAM-1);
+
+// tam menos 1 pq eu começo com 0
+exibe(vetor);
+
+cout << endl << " foram realizadas " << troca << "
+trocas " << endl;
+cout << endl << " foram realizadas " << comparacao
+<< " comparações " << endl;
+return 0;
+}
